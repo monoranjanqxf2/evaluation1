@@ -5,10 +5,9 @@ URL: moisturizer
 from .Base_Page import Base_Page
 import conf.weather_shopper_conf as locators
 from .sunscreens_moisturizers_object import Sunscreens_Moisturizers_Object
-from .checkout_payment_object import Checkout_Payment_Object
 from utils.Wrapit import Wrapit
 
-class Moisturizer_Page(Base_Page,Sunscreens_Moisturizers_Object,Checkout_Payment_Object):
+class Moisturizer_Page(Base_Page,Sunscreens_Moisturizers_Object):
     "Page Object for the Moisturizer Page"
 
     #locators

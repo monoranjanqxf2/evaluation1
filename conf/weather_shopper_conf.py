@@ -27,15 +27,6 @@ cart_count ="xpath,//span[contains(text(),'item(s)')]"
 cart_button ="xpath,//button[@class='thin text-nav-ink']" 
 pay_with_card ="xpath,//button[@type='submit']"
 
-email_text = "xpath,//input[@type='email']"
-card_number_text = "xpath,//input[@type='tel']"
-mm_yy_text="xpath,//*[contains(@class,'Fieldset-input Textbox-control')][1]/following::*[contains(@placeholder,'MM / YY')]"
-cvc_text= "xpath,//*[contains(@class,'Fieldset-input Textbox-control')][1]/following::*[contains(@placeholder,'CVC')]"
-zip_code_text ="xpath,//*[contains(@class,'Fieldset-input Textbox-control')][1]/following::*[contains(@placeholder,'ZIP Code')]"
-remember_me_checkbox = "xpath,//div[contains(@class,'Checkbox-tick')]"
-phone_text ="xpath,//*[contains(@class,'Fieldset-input Textbox-control')][1]/following::*[contains(@value,'+91')]"
-pay_button = "xpath,//*[contains(@type,'submit')]"
-
 price_tag ="xpath,//div[contains(@class,'col-4')]"
 add_item ="xpath,//p[contains(text(),'%s')]/following-sibling::button[@class='btn btn-primary']"
 

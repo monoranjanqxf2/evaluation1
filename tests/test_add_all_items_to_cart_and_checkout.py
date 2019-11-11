@@ -14,7 +14,6 @@ import os,sys,time
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from page_objects.PageFactory import PageFactory
 from utils.Option_Parser import Option_Parser
-import conf.checkout_payment_form_conf as conf
 import conf.testrail_caseid_conf as testrail_file
 import random
 import time
@@ -35,14 +34,7 @@ def test_add_all_items_to_cart_and_checkout(base_url,browser,browser_version,os_
         start_time = int(time.time())	
         test_obj.register_driver(remote_flag,os_name,os_version,browser,browser_version,remote_project_name,remote_build_name)
         
-        #3.  get values from conf
-        emailid = "aq"+randomStringwithDigitsAndSybols()+ "@a.com"  
-        credit_card = conf.credit_card
-        cvv=conf.cvv1   
-        mmyy=conf.mmyy
-        phone=conf.phone 
-        zip_code =conf.zip_code_text
-
+        
         #3. Check the temperature and based on the temperature click on buy button of moiturizer or sunscreen 
         result_flag = test_obj.check_temp_and_click_product_category()
         test_obj.log_result(result_flag,
@@ -53,15 +45,7 @@ def test_add_all_items_to_cart_and_checkout(base_url,browser,browser_version,os_
         result_flag = test_obj.add_all_items_and_verify_cart() 
         test_obj.log_result(result_flag,
                             positive="All items added successfully to the cart\n",
-                            negative="Failed to add all items to the cart\nOn")
-
-        #5.Checkout with payment
-        result_flag = test_obj.do_checkout(emailid,credit_card,cvv,zip_code,mmyy,phone1) 
-        test_obj.log_result(result_flag,
-                            positive="Successfully checkout is completed\n",
-                            negative="Failed to checkout\nOn")
-        
-        test_obj.write('Script duration: %d seconds\n'%(int(time.time()-start_time)))        
+                            negative="Failed to add all items to the cart\nOn")            
                 
         #6. Print out the results
         test_obj.write_test_summary()
@@ -78,11 +62,6 @@ def test_add_all_items_to_cart_and_checkout(base_url,browser,browser_version,os_
 
     assert expected_pass == actual_pass, "Test failed: %s"%__file__
        
-#function to create random string values which will be appended to email id to make it unique everytime
-def randomStringwithDigitsAndSymbols(stringLength=10):
-    """Generate a random string of letters, digits and special characters """
-    password_characters = string.ascii_letters + string.digits + string.punctuation
-    return ''.join(random.choice(password_characters) for i in range(stringLength))
 
 #---START OF SCRIPT   
 if __name__=='__main__':

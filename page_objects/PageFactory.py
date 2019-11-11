@@ -12,7 +12,6 @@ Pages implemented so far:
 from page_objects.moisturizer_page import Moisturizer_Page
 from page_objects.sunscreen_page import Sunscreen_Page
 from page_objects.weather_shopper_main_page import Weather_Shopper_Main_Page
-from page_objects.checkout_payment_page import Checkout_Payment_Page
 from conf import base_url_conf as conf
 
 
@@ -28,8 +27,6 @@ class PageFactory():
             test_obj = Moisturizer_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)
         elif page_name == "sunscreens":
             test_obj = Sunscreen_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)
-        elif page_name == "cart" :
-            test_obj = Checkout_Payment_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)
         return test_obj
 
     get_page_object = staticmethod(get_page_object)
