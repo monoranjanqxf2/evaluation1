@@ -25,7 +25,7 @@ class Weather_Shopper_object:
         temp_text = self.get_text(self.temperature_field)
         temp_text = temp_text.decode('utf-8')
         if temp_text !='':
-            result_flag = True  
+            result_flag = True 
         self.conditional_write(result_flag,
             positive='The temperature is %s'%temp_text,
             negative='Could not get the temperature',
@@ -84,10 +84,12 @@ class Weather_Shopper_object:
     def check_redirect_moisturizers(self):
         "Check the moisturizer screen is loaded on redirect"
         result_flag = False
-        heading_moisturizers = self.get_page_heading("Moisturier") 
-        if heading_moisturizers.lower() in self.driver.title: 
+        heading_moisturizers = self.get_page_heading("Moisturizer")
+        current_url=self.get_current_url()+'s'#added s
+        if heading_moisturizers.lower() in current_url.lower(): #self.driver.title():
             result_flag = True
-            self.switch_page("moisturizers")
+            print(result_flag)
+            self.switch_page("Moisturizers")
         self.conditional_write(result_flag,
             positive='Landed on Moisturizer screen',
             negative='Could not land on Moisturizer screen',
@@ -101,11 +103,12 @@ class Weather_Shopper_object:
     def check_redirect_sunscreen(self):
         "Check on sunscreen screen is loaded on redirect"
         result_flag = False
-        url_landed = self.get_current_url()
-        heading_sunscreens = self.get_page_heading("Sunscreens")      
-        if heading_sunscreens.lower() in url_landed.lower():
+        url_landed = self.get_current_url()+'s'#added s
+        heading_sunscreens = self.get_page_heading("Sunscreen")
+              
+        if heading_sunscreens.lower() in url_landed.lower()+'s':
             result_flag = True
-            self.switch_page("sunscreens")
+            self.switch_page("Sunscreens")
         self.conditional_write(result_flag,
             positive='Landed on Sunscreen screen',
             negative='Could not land on Sunscreen screen',

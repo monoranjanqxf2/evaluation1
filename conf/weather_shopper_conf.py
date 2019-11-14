@@ -15,16 +15,17 @@
 
 page_title = "xpath,//h2"
 temperature_field = "xpath,//span[@id ='temperature']"
-click_moisturizers = "xpath,//button[text()='Buy moisturiers']" 
-click_sunscreens= "xpath,//button[text()=='Buy sunscreens']"
+click_moisturizers = "xpath,//button[text()='Buy moisturizers']" 
+click_sunscreens= "xpath,//button[text()='Buy sunscreens']"
 heading_text = "xpath,//h2[contains(text(),'%s')]"
 heading_sunscreen = "xpath,//h2[contains(text(),'Sunscreens')]"
 heading_moisturizer = "xpath,//h2[contains(text(),'Moisturizers')]"
+heading_cart = "xpath,//h2[contains(text(),'Checkout')]"
 
-add_moisturizer_sunscreen_button =""  
+add_moisturizer_sunscreen_button ="xpath,//button[@class='btn btn-primary']" #xpath adeed
 cart_count ="xpath,//span[contains(text(),'item(s)')]"
 
-cart_button ="xpath,//button[@class='thin text-nav-ink']" 
+cart_button ="xpath,//button[contains(@class,'thin-text nav-link')]" 
 pay_with_card ="xpath,//button[@type='submit']"
 
 price_tag ="xpath,//div[contains(@class,'col-4')]"

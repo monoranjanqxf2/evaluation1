@@ -84,8 +84,9 @@ class Base_Page(Borg,unittest.TestCase):
 
 
     def switch_page(self,page_name):
-        "Switch the underlying class to the required Page"
+        "Switch the underlying class to the required Page" # adding return
         self.__class__ = PageFactory.PageFactory.get_page_object(page_name,base_url=self.base_url).__class__
+
        
 
     def register_driver(self,remote_flag,os_name,os_version,browser,browser_version,remote_project_name,remote_build_name):
@@ -339,7 +340,7 @@ class Base_Page(Borg,unittest.TestCase):
         pass
 
 
-    def _get_locator(key):
+    def _get_locator(self,key):
         "fetches locator from the locator conf"
         value = None
         try:

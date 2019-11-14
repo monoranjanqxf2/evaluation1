@@ -25,7 +25,7 @@ class Sunscreens_Moisturizers_Object:
     @Wrapit._screenshot
     @Wrapit._exceptionHandler
     def click_add_button(self):
-        "Click add button"
+        "Click add button"    
         result_flag = self.click_element(self.add_button)
         self.conditional_write(result_flag,
             positive='Clicked on add button',
@@ -39,15 +39,18 @@ class Sunscreens_Moisturizers_Object:
     def click_all_add_button(self):
         "Click all add buttons"
         result_flag =False
-        number_of_items= self.get_element(self.add_button)   
-        for element in number_of_items:
-            result_flag = self.click_element(self.add_button)
+        number_of_items = self.get_elements(self.price_tag)   
+        for element in number_of_items:       
+            price=element.text.split('\n')[1] 
+            result_flag = self.click_element(self.add_item%price)
             self.conditional_write(result_flag,
             positive='Clicked on add  button',
             negative='Could not click on add  button',
-            level='debug')    
+            level='debug')
+
+        return result_flag   
         
-        return result_flag
+        
 
     
     @Wrapit._screenshot
@@ -91,24 +94,25 @@ class Sunscreens_Moisturizers_Object:
     def check_redirect_cart(self):
         "Check the cart screen is loaded on redirect"
         result_flag = False
-        cart_url = 'carts'         
-        if cart_url.lower() in self.get_current_url().lower():
-            result_flag = True
+        cart_url = 'cart'
+        current_url = self.get_current_url().lower()                       
+        if cart_url.lower() in current_url:
             self.switch_page("cart")
+            result_flag = True            
         self.conditional_write(result_flag,
             positive='Landed on cart screen',
             negative='Could not land on cart screen',
             level='debug')    
 
-        return result_flag 
+        return result_flag
 
     
     @Wrapit._screenshot
     @Wrapit._exceptionHandler
     def get_most_expensive_sunscreens(self):
         "get the most expensive item"
-        list_price_most_expensive_sunscreens =[]
-        min_price =10000000
+        list_price_most_expensive_sunscreens=[]
+        max_price =0
         self.wait(5)
         result_flag = False
         number_of_items= self.get_elements(self.price_tag)
@@ -116,8 +120,8 @@ class Sunscreens_Moisturizers_Object:
             split_price = element.text
             new_price = re.findall(r'\b\d+\b', split_price)
             new_price = int(new_price[1])
-            if(new_price >= min_price):
-                min_price = new_price
+            if(new_price >= max_price):
+                max_price = new_price
             list_price_most_expensive_sunscreens.append(new_price)
             result_flag = True
         self.conditional_write(result_flag,
@@ -131,8 +135,7 @@ class Sunscreens_Moisturizers_Object:
     @Wrapit._exceptionHandler
     def click_add_expensive_sunscreens(self,list_price_most_expensive_sunscreens):
         "Click on add for expensive item"
-        max_value = min(list_price_most_expensive_sunscreens) 
-        print(max_value)
+        max_value = max(list_price_most_expensive_sunscreens) 
         max_value_str = str(max_value)
         result_flag = self.click_element(self.add_most_expensive%max_value_str)
         self.conditional_write(result_flag,
@@ -156,7 +159,7 @@ class Sunscreens_Moisturizers_Object:
                 new_price = int(new_price[0])
                 if(new_price <= min_price):
                         min_price = new_price
-                list_price_least_expensive_spf50.add(new_price)
+                list_price_least_expensive_spf50.append(new_price)
                 result_flag = True
                 self.conditional_write(result_flag,
                 positive='SPF-50 sunscreens are added to the array',
@@ -219,6 +222,7 @@ class Sunscreens_Moisturizers_Object:
     @Wrapit._screenshot
     @Wrapit._exceptionHandler
     def select_2_least_expensive_sunscreens(self):
+        result_flag= False
         "select least priced SPF-50 and SPF-30 sunscreens"
         list_price_least_expensive_spf50 =self.get_least_expensive_spf50()
         list_price_least_expensive_spf30 =self.get_least_expensive_spf30()
@@ -235,29 +239,31 @@ class Sunscreens_Moisturizers_Object:
     def select_expensive_sunscreen(self):
         "Add all items to the cart and verify if added successfully"
         list_price_most_expensive_sunscreens =self.get_most_expensive_sunscreens()
-        result_flag =self.click_add_expensive_sunscreens(list_price_most_expensive_sunscreens1) 
+        result_flag =self.click_add_expensive_sunscreens(list_price_most_expensive_sunscreens) 
         result_flag &=self.click_cart()
         result_flag &=self.check_redirect_cart()
+
         return result_flag
 
     @Wrapit._screenshot
     @Wrapit._exceptionHandler
     def add_all_items_and_verify_cart(self):
         "Add all items to the cart and verify if added successfully"
-        result_flag =self.click_add_button()
+        result_flag =self.click_all_add_button()
         result_flag &=self.check_added_count()   
         result_flag &=self.click_cart() 
         result_flag &=self.check_redirect_cart()
 
-        return  
+        return  result_flag
 
     @Wrapit._screenshot
     @Wrapit._exceptionHandler
     def add_all_moisturizers_verify_cart(self):
         "Add all mosturizers to the cart and verify if added successfully"
         result_flag =self.click_all_add_button()
-        result_flag &=self.check_added_count()    
+        result_flag &=self.check_added_count()
 
+        
         return result_flag
 
         
@@ -274,7 +280,7 @@ class Sunscreens_Moisturizers_Object:
                 new_price = re.findall(r'\b\d+\b', split_price)
                 new_price = int(new_price[0])
                 if(new_price <= min_price):
-                        min_price = new_price
+                    min_price = new_price
                 list_price_least_expensive_almond.append(new_price)
                 result_flag = True
                 self.conditional_write(result_flag,
@@ -288,7 +294,7 @@ class Sunscreens_Moisturizers_Object:
     @Wrapit._exceptionHandler
     def click_least_expensive_almond(self,list_price_least_expensive_almond):
         "Click on add for least expensive almond"
-        min_value = max(list_price_least_expensive_almond)
+        min_value = min(list_price_least_expensive_almond)
         min_value_str = str(min_value)
         result_flag = self.click_element(self.add_item%min_value_str)
         self.conditional_write(result_flag,
@@ -311,7 +317,7 @@ class Sunscreens_Moisturizers_Object:
                 new_price = re.findall(r'\b\d+\b', split_price)
                 new_price = int(new_price[0])
                 if(new_price <= min_price):
-                        min_price = new_price
+                    min_price = new_price
                 list_price_least_expensive_aloe.append(new_price)
                 result_flag = True
                 self.conditional_write(result_flag,
@@ -342,10 +348,9 @@ class Sunscreens_Moisturizers_Object:
         list_price_least_expensive_almond =self.get_least_expensive_almond()
         list_price_least_expensive_aloe =self.get_least_expensive_aloe()
         result_flag =self.click_least_expensive_almond(list_price_least_expensive_almond)  
-        result_flag &= self.click_least_expensive_aloe(list_price_least_expensive_aloe)
+        result_flag &=self.click_least_expensive_aloe(list_price_least_expensive_aloe)
         result_flag &=self.click_cart()
         result_flag &=self.check_redirect_cart()
-
         return result_flag
 
     @Wrapit._screenshot
@@ -353,7 +358,7 @@ class Sunscreens_Moisturizers_Object:
     def get_most_expensive_moisturizer(self):
         "get the most expensive item"
         list_price_most_expensive_moisturizer =[]
-        min_price =10000000
+        min_price =0
         self.wait(5)
         result_flag = False
         number_of_items= self.get_elements(self.price_tag)
@@ -363,7 +368,7 @@ class Sunscreens_Moisturizers_Object:
             new_price = int(new_price[0])
             if(new_price >= min_price):
                 min_price = new_price
-            list_price_most_expensive_moisturizer.append(new_price)
+            list_price_most_expensive_moisturizer.append(min_price)
             result_flag = True
         self.conditional_write(result_flag,
             positive='Most expensive item array is created',
@@ -376,7 +381,7 @@ class Sunscreens_Moisturizers_Object:
     @Wrapit._exceptionHandler
     def click_add_expensive_moisturizer(self,list_price_most_expensive_moisturizer):
         "Click on add for expensive item"
-        max_value = range(list_price_most_expensive_moisturizer)
+        max_value = max(list_price_most_expensive_moisturizer)
         print(max_value)
         max_value_str = str(max_value)
         result_flag = self.click_element(self.add_most_expensive%max_value_str)
