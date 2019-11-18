@@ -21,6 +21,7 @@ heading_text = "xpath,//h2[contains(text(),'%s')]"
 heading_sunscreen = "xpath,//h2[contains(text(),'Sunscreens')]"
 heading_moisturizer = "xpath,//h2[contains(text(),'Moisturizers')]"
 heading_cart = "xpath,//h2[contains(text(),'Checkout')]"
+heading_payment = "xpath,//h2[contains(text(),'PAYMENT')]"
 pay_with_card = "xpath,//span[contains(text(),'Pay with Card')]"
 
 frame = "//iframe[contains(@name,'stripe_checkout_app')]"

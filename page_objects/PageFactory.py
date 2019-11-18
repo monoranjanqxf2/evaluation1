@@ -31,9 +31,8 @@ class PageFactory():
             test_obj = Sunscreen_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)
         elif page_name == "cart":
             test_obj = Cart_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)
-        elif page_name == "confirmation":
-            test_obj = Payment_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)
-
+        elif page_name == "payment":
+            test_obj = Payment_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)   
         return test_obj
 
     get_page_object = staticmethod(get_page_object)

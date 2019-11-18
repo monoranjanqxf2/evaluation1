@@ -6,6 +6,7 @@ import conf.weather_shopper_conf as locators
 from utils.Wrapit import Wrapit
 import re
 import random
+import time
 
 
 class Sunscreens_Moisturizers_Object:
@@ -267,7 +268,7 @@ class Sunscreens_Moisturizers_Object:
         result_flag &=self.click_cart() 
         result_flag &=self.check_redirect_cart()
         result_flag &=self.verify_payment()
-        self.switch_page("confirmation")
+        
         return  result_flag
 
     @Wrapit._screenshot
@@ -437,10 +438,11 @@ class Sunscreens_Moisturizers_Object:
     def verify_payment(self):
         result_flag= False
         "verify payment"
-        #check no of item in cart #result_flag &=self.check_item_in_cart
+        
         result_flag = self.click_payment()
         result_flag &= self.switch_frame(self.frame)
         result_flag &= self.fill_customer_details()
+        time.sleep(10)
         return result_flag
 
     
@@ -464,8 +466,12 @@ class Sunscreens_Moisturizers_Object:
         result_flag &= self.click_element(self.checkbox_click_me)
         result_flag &= self.set_text(self.mobile_no,mobile)
         result_flag &= self.click_element(self.pay_button)
+        time.sleep(10)
+        
+        self.switch_page('payment')
         
         return result_flag
+    
 
     
 
