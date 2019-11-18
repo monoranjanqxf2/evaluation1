@@ -4,6 +4,7 @@ This class models the weather shopper's main page objects
 from .Base_Page import Base_Page
 import conf.weather_shopper_conf as locators
 from utils.Wrapit import Wrapit
+import random
 
 
 class Weather_Shopper_object:
@@ -16,6 +17,7 @@ class Weather_Shopper_object:
     heading_text = locators.heading_text
     heading_sunscreen =locators.heading_sunscreen
     price_tag =locators.price_tag
+    pay_with_card = locators.pay_with_card
 
     @Wrapit._screenshot
     @Wrapit._exceptionHandler
@@ -103,7 +105,7 @@ class Weather_Shopper_object:
     def check_redirect_sunscreen(self):
         "Check on sunscreen screen is loaded on redirect"
         result_flag = False
-        url_landed = self.get_current_url()+'s'#added s
+        url_landed = self.get_current_url()+'s'
         heading_sunscreens = self.get_page_heading("Sunscreen")
               
         if heading_sunscreens.lower() in url_landed.lower()+'s':
@@ -133,4 +135,11 @@ class Weather_Shopper_object:
 
         return heading_text
 
+    
 
+
+    
+
+
+
+ 

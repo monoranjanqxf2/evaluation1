@@ -5,6 +5,7 @@ from .Base_Page import Base_Page
 import conf.weather_shopper_conf as locators
 from utils.Wrapit import Wrapit
 import re
+import random
 
 
 class Sunscreens_Moisturizers_Object:
@@ -20,6 +21,18 @@ class Sunscreens_Moisturizers_Object:
     spf30_price=locators.spf30_price
     spf50_price=locators.spf50_price
     add_item =locators.add_item
+    pay_with_card = locators.pay_with_card
+    frame = locators.frame
+
+    email = locators.email
+    card_no = locators.card_no
+    card_exp_date = locators.card_exp_date
+    card_cvv = locators.card_cvv
+    zip_code = locators.zip_code
+    checkbox_click_me = locators.checkbox_click_me
+    mobile_no = locators.mobile_no
+    pay_button = locators.pay_button
+    
 
 
     @Wrapit._screenshot
@@ -98,7 +111,7 @@ class Sunscreens_Moisturizers_Object:
         current_url = self.get_current_url().lower()                       
         if cart_url.lower() in current_url:
             self.switch_page("cart")
-            result_flag = True            
+            result_flag = True           
         self.conditional_write(result_flag,
             positive='Landed on cart screen',
             negative='Could not land on cart screen',
@@ -253,7 +266,8 @@ class Sunscreens_Moisturizers_Object:
         result_flag &=self.check_added_count()   
         result_flag &=self.click_cart() 
         result_flag &=self.check_redirect_cart()
-
+        result_flag &=self.verify_payment()
+        self.switch_page("confirmation")
         return  result_flag
 
     @Wrapit._screenshot
@@ -400,4 +414,62 @@ class Sunscreens_Moisturizers_Object:
         result_flag =self.click_add_expensive_moisturizer(list_price_most_expensive_moisturizer)
         result_flag &=self.click_cart()
         result_flag &=self.check_redirect_cart()
+
         return result_flag
+
+    ''' payment verification '''
+
+    @Wrapit._screenshot
+    @Wrapit._exceptionHandler
+    def click_payment(self):
+        "Click payment button"
+        result_flag = self.click_element(self.pay_with_card)
+        self.conditional_write(result_flag,
+            positive='Clicked on payment button',
+            negative='Could not click payment button',
+            level='debug')    
+
+        return result_flag
+
+        
+    @Wrapit._screenshot
+    @Wrapit._exceptionHandler
+    def verify_payment(self):
+        result_flag= False
+        "verify payment"
+        #check no of item in cart #result_flag &=self.check_item_in_cart
+        result_flag = self.click_payment()
+        result_flag &= self.switch_frame(self.frame)
+        result_flag &= self.fill_customer_details()
+        return result_flag
+
+    
+    @Wrapit._screenshot
+    @Wrapit._exceptionHandler
+    def fill_customer_details(self):
+        result_flag = False
+        "Autometically fill customer details"
+        mail_index=random.randint(1,100)
+        email_id = 'monoranjan.mandal'+str(mail_index)+'@qxf2.com'
+        card_number = '424242424242424242'
+        exp_date = '12/30'
+        cvv ='123'
+        zipcode = '560100'
+        mobile = '9211420420'
+        result_flag = self.set_text(self.email,email_id)
+        result_flag &= self.set_text(self.card_no,card_number)
+        result_flag &= self.set_text(self.card_exp_date,exp_date)
+        result_flag &= self.set_text(self.card_cvv,cvv)
+        result_flag &= self.set_text(self.zip_code,zipcode)
+        result_flag &= self.click_element(self.checkbox_click_me)
+        result_flag &= self.set_text(self.mobile_no,mobile)
+        result_flag &= self.click_element(self.pay_button)
+        
+        return result_flag
+
+    
+
+
+    
+
+

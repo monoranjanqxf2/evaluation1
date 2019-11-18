@@ -273,6 +273,7 @@ class Base_Page(Borg,unittest.TestCase):
         "Make the driver switch to the frame with a name"
         result_flag = False
         try:
+            
             if name is not None:            
                 self.driver.switch_to.frame(frame_reference= self.driver.find_element_by_xpath(name))                
                 result_flag = True
@@ -286,7 +287,7 @@ class Base_Page(Borg,unittest.TestCase):
             self.exceptions.append("Error when switching frame")
 
         return result_flag
-          
+         
 
     def switch_window(self,name=None):
         "Make the driver switch to the last window or a window with a name"

@@ -41,14 +41,25 @@ def test_add_all_items_to_cart_and_checkout(base_url,browser,browser_version,os_
                             positive="Successfully clicked on right button\n",
                             negative="Failed to click right button\nOn")
         
-        #4. Add all items to the cart and checkout with payment
+        #4. Add all items to the cart and checkout 
         result_flag = test_obj.add_all_items_and_verify_cart() 
         test_obj.log_result(result_flag,
                             positive="All items added successfully to the cart\n",
                             negative="Failed to add all items to the cart\nOn")            
-                
-        #6. Print out the results
+        test_obj.wait(3)      
+        #6. Payment Varification
+        result_flag = test_obj.check_payment_success()
+        test_obj.log_result(result_flag,
+                            positive="Payment is Successfull\n",
+                            negative="Payment is Failed\nOn")
+        
+        
+        #7. Print out the results
         test_obj.write_test_summary()
+
+
+        
+        
 
         #Teardown
         test_obj.wait(3)

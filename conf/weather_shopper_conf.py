@@ -10,7 +10,7 @@
 #LINK_TEXT
 #PARTIAL_LINK_TEXT
 #XPATH
-###########################################
+############################################
 
 
 page_title = "xpath,//h2"
@@ -21,12 +21,23 @@ heading_text = "xpath,//h2[contains(text(),'%s')]"
 heading_sunscreen = "xpath,//h2[contains(text(),'Sunscreens')]"
 heading_moisturizer = "xpath,//h2[contains(text(),'Moisturizers')]"
 heading_cart = "xpath,//h2[contains(text(),'Checkout')]"
+pay_with_card = "xpath,//span[contains(text(),'Pay with Card')]"
 
-add_moisturizer_sunscreen_button ="xpath,//button[@class='btn btn-primary']" #xpath adeed
+frame = "//iframe[contains(@name,'stripe_checkout_app')]"
+email = "xpath,//input[contains(@type,'email')]"
+card_no = "xpath,//input[contains(@type,'tel')]"
+card_exp_date = "xpath,//input[contains(@placeholder,'MM / YY')]"
+card_cvv = "xpath,//input[contains(@placeholder,'CVC')]"
+zip_code = "xpath,//input[contains(@placeholder,'ZIP Code')]"
+checkbox_click_me = "xpath,//div[contains(@class,'Checkbox-tick')]"
+mobile_no = "xpath,//input[contains(@autocomplete,'mobile tel')]"
+pay_button = "xpath,//button[contains(@type,'submit')]"
+
+add_moisturizer_sunscreen_button ="xpath,//button[@class='btn btn-primary']" 
 cart_count ="xpath,//span[contains(text(),'item(s)')]"
 
 cart_button ="xpath,//button[contains(@class,'thin-text nav-link')]" 
-pay_with_card ="xpath,//button[@type='submit']"
+pay_with_card ="xpath,//span[contains(text(),'Pay with Card')]"
 
 price_tag ="xpath,//div[contains(@class,'col-4')]"
 add_item ="xpath,//p[contains(text(),'%s')]/following-sibling::button[@class='btn btn-primary']"
