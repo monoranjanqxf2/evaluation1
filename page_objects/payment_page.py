@@ -21,7 +21,6 @@ class Payment_Page(Base_Page,Sunscreens_Moisturizers_Object,Payment_Object):
     @Wrapit._exceptionHandler    
     def check_heading(self):
         "Check if the heading exists"
-
         result_flag = self.check_element_present(self.heading)
         self.conditional_write(result_flag,
             positive='Correct heading present on redirect page',
